@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="assets/css/pace.min.css" rel="stylesheet" />
+	<script src="assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<title>PJH ADMIN PORTAL</title>
+	<script src="assets/js/jquery.min.js"></script>
+</head>
+
+<body class="bg-theme bg-theme12">
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+				</div>
+				<div>
+					<h4 class="logo-text">PJH</h4>
+				</div>
+				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="lni lni-atlassian"></i>
+						</div>
+						<div class="menu-title">Customize My WebPage</div>
+					</a>
+					<ul>
+						<li> <a href="/heading_picture"><i class="bx bx-right-arrow-alt"></i>Customize Heading Pictures</a>
+						</li>
+						<li> <a href="/product_details"><i class="bx bx-right-arrow-alt"></i>Customize Product Details</a>
+						</li>
+						<li> <a href="/advertise_image"><i class="bx bx-right-arrow-alt"></i>Customize My Advertisement</a>
+						</li>
+						<li> <a href="/reviews"><i class="bx bx-right-arrow-alt"></i>Customize My Review</a>
+						</li>
+						<li> <a href="/contact"><i class="bx bx-right-arrow-alt"></i>Customize My Contacts</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-user"></i>
+						</div>
+						<div class="menu-title">All User Details</div>
+					</a>
+					<ul>
+						<li> <a href="/view_users"><i class="bx bx-right-arrow-alt"></i>View Users</a>
+						</li>
+						<li> <a href="/statistics"><i class="bx bx-right-arrow-alt"></i>Statistics</a>
+						</li>
+						<li> <a href="/view_news"><i class="bx bx-right-arrow-alt"></i>Upload News</a>
+						</li>
+						<li> <a href="/view_notification"><i class="bx bx-right-arrow-alt"></i>Upload Notification</a>
+						</li>
+						<li> <a href="/view_rewards"><i class="bx bx-right-arrow-alt"></i>Upload Rewards</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-headphone"></i>
+						</div>
+						<div class="menu-title">Support</div>
+					</a>
+					<ul>
+						<li> <a href="tel: +91629669730"><i class="bx bx-right-arrow-alt"></i>Call Us</a>
+						</li>
+						<li> <a href="mailto:info@mazesoftsolution.com"><i class="bx bx-right-arrow-alt"></i>Email</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!--end navigation-->
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+					</div>
+					<div class="flex-grow-1">
+						<div class="position-relative">
+							<span class="position-absolute" hidden>Dashboard</span>
+						</div>
+					</div>
+					<div class="top-menu ms-auto">
+						<ul class="navbar-nav align-items-center">
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-notifications-list">
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-message-list">
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="user-box dropdown">
+						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span id="admin-img-nav">
+								<img src="assets/images/user.png" alt="Admin" class="user-img" alt="user avatar">
+							</span>
+							<div class="user-info ps-3">
+								<p class="user-name mb-0">User Name</p>
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="/update_profile"><i class="bx bx-cog"></i><span>Update Profile</span></a>
+							</li>
+							<li><a class="dropdown-item" href="/update_password"><i class="bx bx-lock"></i><span>Update Password</span></a>
+							</li>
+							<li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+							<li><a class="dropdown-item" href="/logout"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Dashboard</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Product Details</li>
+							</ol>
+						</nav>
+					</div>
+					<!--<div class="ms-auto">
+						<div class="btn-group">
+							<button type="button" class="btn btn-light">Settings</button>
+							<button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+								<a class="dropdown-item" href="javascript:;">Another action</a>
+								<a class="dropdown-item" href="javascript:;">Something else here</a>
+								<div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="row">
+					<div class="col-xl-3 d-flex"></div>
+					<div class="col-xl-6 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<h5 class="mb-1">Add My Products</h5>
+									</div>
+								</div>
+								<br>
+								<form action="/product/add" method="POST" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="mb-3">
+												<label class="form-label" for="product_category">Product Category</label>
+												<select class="form-select" id="product_category"  name="product_category" required>
+													<option selected disabled>Choose...</option>
+													<option value="wellness_supplement">Wellness Supplement</option>
+													<option value="health_supplement">Health Supplement</option>
+													<option value="food_supplement">Food Supplement</option>
+													<option value="body_care">Body Care</option>
+													<option value="face_care">Face Care</option>
+													<option value="hair_care">Hair Care</option>
+													<option value="oral_care">Oral Care</option>
+													<option value="home_hygiene">Home Hygiene</option>
+													<option value="kitchen_hygiene">Kitchen Hygiene</option>
+													<option value="cloth_hygiene">Cloth Hygiene</option>
+													<option value="woman_face_mask">Woman Face Mask</option>
+													<option value="men_face_mask">Men Face Mask</option>
+													<option value="men_lifestyle_t-shirt" disabled>LifeStyle Men T-Shirt</option>
+													<option value="men_lifestyle_polo-t-shirt" disabled>LifeStyle Men Polo-T-Shirt</option>
+													<option value="women_lifestyle_t-shirt" disabled>LifeStyle Women T-Shirt</option>
+													<option value="women_lifestyle_trouser" disabled>LifeStyle Women Trouser</option>
+													<option value="women_lifestyle_polo-t-shirt" disabled>LifeStyle Women Polo-T-Shirt</option>
+													<option value="boys_lifestyle_trackpant" disabled>LifeStyle Boys Trackpant</option>
+													<option value="boys_lifestyle_polo-t-shirt" disabled>LifeStyle Boys Polo-T-Shirt</option>
+													<option value="girls_lifestyle_t-shirt" disabled>LifeStyle Girls T-Shirt</option>
+													<option value="girls_lifestyle_trackpant" disabled>LifeStyle Girls Trackpant</option>
+													<option value="girls_lifestyle_crop-top" disabled>LifeStyle Girls Crop-Top</option>
+													<option value="girls_lifestyle_polo-t-shirt" disabled>LifeStyle Girls Polo-T-Shirt</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="mb-3">
+												<label for="product_image" class="form-label">Add My Product Picture</label>
+												<input class="form-control" type="file" id="product_image" name="product_image" required>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="mb-3">
+												<label for="product_name" class="form-label">Product Name</label>
+												<input class="form-control" type="text" id="product_name" name="product_name" placeholder="type your product name" required>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="mb-3">
+												<label for="product_price" class="form-label">Product Price (INR.) </label>
+												<input class="form-control" type="text" id="product_price" name="product_price" placeholder="type your product price (INR)" required>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="mb-3">
+												<label for="product_details" class="form-label">Product Details</label>
+												<textarea id="product_details" class="form-control form-control-sm mb-3" placeholder="Add Product Details..." rows="6" aria-label=".form-control-sm example" name="product_details" required></textarea>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="mb-3">
+												<label for="product_more_info" class="form-label">More Info (If require)</label>
+												<textarea id="product_more_info" class="form-control form-control-sm mb-3" placeholder="Add more info..." rows="6" aria-label=".form-control-sm example" name="product_more_info"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="col-12">
+										<button class="btn btn-light" type="submit" onclick="validateFileType1()">Submit form</button>
+									</div>
+								</form>
+								<script>
+									function validateFileType1(){
+                                        var fileName = document.getElementById("product_image").value;
+                                        var idxDot = fileName.lastIndexOf(".") + 1;
+                                        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                                        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+                                            //TO DO
+                                        }else{
+                                            alert("Only .jpg, .jpeg and .png files are allowed!");
+                                        }   
+                                    }
+								</script>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 d-flex"></div>
+				</div>
+				<div class="row">
+					<div class="col-xl-12 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<h5 class="mb-1">All Product Data</h5>
+									</div>
+								</div>
+								<div class="table-responsive mt-4">
+									<table class="table align-middle mb-0 table-hover table-striped text-center" id="product-Details">
+										<thead class="table-light">
+											<tr>
+												<th>Product Category</th>
+												<th>Product Name</th>
+												<th>Product Price</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody id="product_details_data">
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<script>
+					function showproduct(){
+						const url1 = "/product/getdata";
+        			    fetch(url1)
+        			        .then(function (response) {
+        			            return response.json();
+        			        })
+        			        .then(function (data) {
+        			            appendData1(data);
+								$(document).ready(function() {
+									$('#product-Details').DataTable({
+										lengthMenu: [[6, 12, 24, -1], [6, 12, 24, 'Show All']]
+									});
+								} );
+        			        })
+        			        .catch(function (err) {
+        			            console.log('error: ' + err);
+        			        });
+					}
+				
+					function appendData1(data){
+						var product_id;
+						var product_category;
+						for(var i=0; i<data.length; i++){
+							product_id = data[i].id;
+							if(data[i].product_category == 'wellness_supplement'){
+								product_category = 'Wellness Supplement';
+							}
+							if(data[i].product_category == 'health_supplement'){
+								product_category = 'Health Supplement';
+							}
+							if(data[i].product_category == 'food_supplement'){
+								product_category = 'Food Supplement';
+							}
+							if(data[i].product_category == 'body_care'){
+								product_category = 'Body Care';
+							}
+							if(data[i].product_category == 'face_care'){
+								product_category = 'Face Care';
+							}
+							if(data[i].product_category == 'hair_care'){
+								product_category = 'Hair Care';
+							}
+							if(data[i].product_category == 'oral_care'){
+								product_category = 'Oral Care';
+							}
+							if(data[i].product_category == 'home_hygiene'){
+								product_category = 'Home Hygiene';
+							}
+							if(data[i].product_category == 'kitchen_hygiene'){
+								product_category = 'Kitchen Hygiene';
+							}
+							if(data[i].product_category == 'cloth_hygiene'){
+								product_category = 'Cloth Hygiene';
+							}
+							if(data[i].product_category == 'woman_face_mask'){
+								product_category = 'Woman Face Mask';
+							}
+							if(data[i].product_category == 'men_face_mask'){
+								product_category = 'Men Face Mask';
+							}
+							$('#product_details_data').append(
+								'<tr>' +
+									'<td>' + product_category + '</td>' +
+									'<td>' + data[i].product_name + '</td>' +
+									'<td>' + data[i].product_price + '</td>' +
+									'<td>' +
+										'<button id="'+ product_id +'" type="button" onclick="edit_product_data(this.id)" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#product_details_modal"><i class="bx bx-message-square-edit"></i></button>' +
+										'&nbsp;<button id="'+ product_id +'" type="button" onclick="remove_product_data(this.id)" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#product_remove_modal"><i class="bx bx-trash"></i></button>' +
+									'</td>' +
+								'</tr>'
+							);
+						}
+					}
+				</script>
+			</div>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright © <a href="https://mazesoftsolutions.com/">mazesoftsolution</a> 2021. All right reserved.</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	
+	<!--Modal Data Start-->
+	<script>
+		var clicked_request_product_data;
+
+		function edit_product_data(clicked_id){
+		
+			clicked_request_product_data = clicked_id;
+		
+			console.log(clicked_request_product_data);
+		
+			const url4 = "/product/getdata/edit?id=" + clicked_request_product_data;
+		
+			fetch(url4)
+		
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+			
+				var product_id = data[0].id;
+				var product_name = data[0].product_name;
+				var product_price = data[0].product_price;
+				var product_details = data[0].product_details;
+				var product_more_info = data[0].product_more_info;
+
+				$("#product_id").val('');
+				$("#product_name_id").val('');
+				$("#product_price_id").val('');
+				$("#product_details_id").val('');
+				$("#product_more_info_id").val('');
+				
+				$("#product_id").val(product_id);
+				$("#product_name_id").val(product_name);
+				$("#product_price_id").val(product_price);
+				$("#product_details_id").val(product_details);
+				$("#product_more_info_id").val(product_more_info);				
+			})
+			.catch(function (err) {
+				console.log('error: ' + err);
+			});           
+		}
+	</script>
+	<div class="modal fade" id="product_details_modal" style="display: none;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit Product Data</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form action="/product/update" method="POST" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="mb-3">
+									<label for="product_id" class="form-label">Product ID</label>
+									<input class="form-control" type="text" id="product_id" name="product_id" required readonly>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="mb-3">
+									<label for="product_image_id" class="form-label">Add My Product Picture</label>
+									<input class="form-control" type="file" id="product_image_id" name="product_image_id" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="product_name_id" class="form-label">Product Name</label>
+									<input class="form-control" type="text" id="product_name_id" name="product_name_id" placeholder="type your product name" required>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="product_price_id" class="form-label">Product Price (INR.) </label>
+									<input class="form-control" type="text" id="product_price_id" name="product_price_id" placeholder="type your product price (INR)" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="product_details_id" class="form-label">Product Details</label>
+									<textarea id="product_details_id" class="form-control form-control-sm mb-3" placeholder="Add Product Details..." rows="6" aria-label=".form-control-sm example" name="product_details_id" required></textarea>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<label for="product_more_info_id" class="form-label">More Info (If require)</label>
+									<textarea id="product_more_info_id" class="form-control form-control-sm mb-3" placeholder="Add more info..." rows="6" aria-label=".form-control-sm example" name="product_more_info_id"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				<input type="hidden" name="sid" value="370">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class='bx bx-x'></i> Close</button>
+					<button type="submit" name="update_product" onclick="validateFileType2()" class="btn btn-warning"><i class="bx bx-message-square-edit"></i>Edit</button>
+				</div>
+				</form>
+				<script>
+					function validateFileType2(){
+						var fileName = document.getElementById("product_image_id").value;
+						var idxDot = fileName.lastIndexOf(".") + 1;
+						var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+						if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+							//TO DO
+						}else{
+							alert("Only .jpg, .jpeg and .png files are allowed!");
+						}   
+					}
+				</script>
+			</div>
+		</div>
+	</div>
+
+	<script>		
+		function remove_product_data_final(clicked_id) {
+			const url2= "/product/remove?id=" + clicked_id;							
+			fetch(url2)
+				.then(function () {
+					//return response.json();
+				})
+				.then(function () {
+					$("#product_details_data tr").remove();
+					window.location.reload();
+				})
+			.catch(function (err) {
+				console.log('error: ' + err);
+			});
+		}
+
+		var clicked_request_product_delete_id;
+
+		function remove_product_data(clicked_id){
+		
+			clicked_request_product_delete_id = clicked_id;
+		
+			console.log(clicked_request_product_delete_id);
+
+			const url3 = "/product/getdata/edit?id=" + clicked_request_product_delete_id;
+		
+			fetch(url3)
+		
+			.then(function (response) {
+				return response.json();
+			})
+
+			.then(function (data) {
+
+				var product_id = data[0].id;
+
+				$("#product_delete_footer").empty();
+
+				$('#product_delete_footer').append(
+					'<button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="bx bx-x"></i> No</button>' +
+					'<button id="'+ product_id +'" type="submit" onclick="remove_product_data_final(this.id)" class="btn btn-danger"><i class="bx bx-message-square-edit"></i>Yes</button>'
+				);
+
+			})
+			.catch(function (err) {
+				console.log('error: ' + err);
+			});    
+		}
+	</script>
+	<div class="modal fade" id="product_remove_modal" style="display: none;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<p>Are you sure want to delete this item?</p>
+						</div>
+					</div>																																																																																																																																							
+				</div>
+				<input type="hidden" name="sid" value="370">
+				<div class="modal-footer" id="product_delete_footer">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Modal Data End-->
+	<!--start switcher-->
+	<div class="switcher-wrapper">
+		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
+		</div>
+		<div class="switcher-body">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 text-uppercase">Theme Customizer</h5>
+				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
+			</div>
+			<hr/>
+			<p class="mb-0">Gaussian Texture</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme1"></li>
+				<li id="theme2"></li>
+				<li id="theme3"></li>
+				<li id="theme4"></li>
+				<li id="theme5"></li>
+				<li id="theme6"></li>
+			</ul>
+			<hr>
+			<p class="mb-0">Gradient Background</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme7"></li>
+				<li id="theme8"></li>
+				<li id="theme9"></li>
+				<li id="theme10"></li>
+				<li id="theme11"></li>
+				<li id="theme12"></li>
+			</ul>
+		</div>
+	</div>
+	<!--end switcher-->
+	<!-- Bootstrap JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#kk').DataTable({
+				lengthMenu: [[3, 6, 9, -1], [3, 6, 9, 'Show All']]
+			});
+		  } );
+	</script>
+	<script src="assets/js/index.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script>
+		new PerfectScrollbar('.product-list');
+		new PerfectScrollbar('.customers-list');
+	</script>
+	<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+			(function () {
+			  'use strict'
+	
+			  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+			  var forms = document.querySelectorAll('.needs-validation')
+	
+			  // Loop over them and prevent submission
+			  Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+				  form.addEventListener('submit', function (event) {
+					if (!form.checkValidity()) {
+					  event.preventDefault()
+					  event.stopPropagation()
+					}
+	
+					form.classList.add('was-validated')
+				  }, false)
+				})
+			})()
+	</script>
+	<script>
+		showproduct();
+	</script>
+</body>
+
+</html>

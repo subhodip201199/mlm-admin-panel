@@ -1,0 +1,151 @@
+create table mlm_user(
+	id bigserial primary key,
+	/*user_id varchar(200),*/
+	Username varchar(200),
+	sponsor_id varchar(200),
+	user_type varchar(200),
+	sponsor_name varchar(200),
+	name varchar(200),
+	/*first_name varchar(200), 
+	mid_name varchar(200), 
+	last_name varchar(200),*/
+	father_name varchar(200), 
+	date_of_birth varchar(20), 
+	gender varchar(20), 
+	mobile varchar(20), 
+	email varchar(200), 
+	pincode varchar(20), 
+	state varchar(50), 
+	city varchar(50), 
+	house_building varchar(200), 
+	street_area varchar(200), 
+	landmark varchar(200), 
+	acc_number varchar(50),  
+	aadhar_no varchar(50)
+);
+
+create table product(
+	id bigserial primary key,
+	product_category varchar(50),
+	product_name varchar(500), 
+	product_price varchar(10),
+	product_details varchar(5000),
+	product_more_info varchar(5000)
+);
+
+create table advertisement(
+	id bigserial primary key,
+	discount varchar(50),
+	tag_line varchar(1000), 
+	validation_date varchar(15)
+);
+
+create table review(
+	id bigserial primary key,
+	name varchar(50),
+	feedback varchar(1000)
+);
+
+create table contact(
+	id bigserial primary key,
+	address varchar(200),
+	number varchar(12),
+	mail varchar(100),
+	facebook varchar(500),
+	instagram varchar(500),
+	youtube varchar(500)
+);
+
+CREATE TABLE users (  
+id UUID NOT NULL,  
+username TEXT NOT NULL UNIQUE,  
+password TEXT NOT NULL,  
+name varchar(500),
+phone varchar(20),
+email varchar(500),
+user_type varchar(50),
+CONSTRAINT users_pkey PRIMARY KEY(id)  
+);
+
+ALTER TABLE users
+ADD address varchar(1000);
+
+ALTER TABLE users
+ADD designation varchar(100);
+
+ALTER TABLE users
+ADD linkedin varchar(500);
+
+ALTER TABLE users
+ADD facebook varchar(500);
+
+ALTER TABLE users
+ADD twitter varchar(500);
+
+ALTER TABLE users
+ADD instagram varchar(500);
+
+create table news(
+	id bigserial primary key,
+	news_title varchar(500),
+	news_details varchar(5000)
+);
+
+ALTER TABLE news
+ADD date varchar(10);
+
+ALTER TABLE news
+ADD time varchar(10);
+
+create table notification(
+	id bigserial primary key,
+	news_title varchar(500),
+	news_details varchar(5000),
+	date varchar(10),
+	time varchar(10)
+);
+
+create table rewards(
+	id bigserial primary key,
+	rewards_title varchar(500),
+	rewards_details varchar(5000),
+	date varchar(10),
+	time varchar(10)
+);
+
+create table sell(
+	id bigserial primary key,
+	product_name varchar(500),
+	quantity numeric,
+	total_amount numeric,
+	user_id varchar(200),
+	date varchar(20)
+)
+
+create table comission (
+	id bigserial primary key,
+	user_id varchar(200),
+	amount numeric,
+	date varchar(20)
+)
+
+alter table sell add column month varchar(50);
+alter table sell add column discount int;
+alter table sell add column year varchar (20);
+
+alter table mlm_user add column joining_date varchar(50);
+alter table mlm_user add column month varchar(50);
+alter table mlm_user add column status varchar(50);
+alter table mlm_user add column nominee varchar(50);
+alter table mlm_user add column nominee_relation varchar(50);
+alter table mlm_user add column address varchar(500);
+alter table mlm_user add column bank_name varchar(250);
+alter table mlm_user add column branch_name varchar(250);
+alter table mlm_user add column ifsc_code varchar(1000);
+alter table mlm_user add column pan_number varchar(100);
+
+create table kyc_details(
+	id bigserial primary key,
+	user_id varchar(50),
+	status varchar(50)
+);

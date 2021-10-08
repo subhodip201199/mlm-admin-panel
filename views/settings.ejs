@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="assets/css/pace.min.css" rel="stylesheet" />
+	<script src="assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<title>PJH ADMIN PORTAL</title>
+	<script src="assets/js/jquery.min.js"></script>
+</head>
+
+<body class="bg-theme bg-theme2">
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+				</div>
+				<div>
+					<h4 class="logo-text">PJH</h4>
+				</div>
+				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="lni lni-atlassian"></i>
+						</div>
+						<div class="menu-title">Customize My WebPage</div>
+					</a>
+					<ul>
+						<li> <a href="/heading_picture"><i class="bx bx-right-arrow-alt"></i>Customize Heading Pictures</a>
+						</li>
+						<li> <a href="/product_details"><i class="bx bx-right-arrow-alt"></i>Customize Product Details</a>
+						</li>
+						<li> <a href="/advertise_image"><i class="bx bx-right-arrow-alt"></i>Customize My Advertisement</a>
+						</li>
+						<li> <a href="/reviews"><i class="bx bx-right-arrow-alt"></i>Customize My Review</a>
+						</li>
+						<li> <a href="/contact"><i class="bx bx-right-arrow-alt"></i>Customize My Contacts</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-user"></i>
+						</div>
+						<div class="menu-title">All User Details</div>
+					</a>
+					<ul>
+						<li> <a href="/view_users"><i class="bx bx-right-arrow-alt"></i>View Users</a>
+						</li>
+						<li> <a href="/statistics"><i class="bx bx-right-arrow-alt"></i>Statistics</a>
+						</li>
+						<li> <a href="/view_news"><i class="bx bx-right-arrow-alt"></i>Upload News</a>
+						</li>
+						<li> <a href="/view_notification"><i class="bx bx-right-arrow-alt"></i>Upload Notification</a>
+						</li>
+						<li> <a href="/view_rewards"><i class="bx bx-right-arrow-alt"></i>Upload Rewards</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-headphone"></i>
+						</div>
+						<div class="menu-title">Support</div>
+					</a>
+					<ul>
+						<li> <a href="tel: +91629669730"><i class="bx bx-right-arrow-alt"></i>Call Us</a>
+						</li>
+						<li> <a href="mailto:info@mazesoftsolution.com"><i class="bx bx-right-arrow-alt"></i>Email</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!--end navigation-->
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+					</div>
+					<div class="flex-grow-1">
+						<div class="position-relative">
+						</div>
+					</div>
+					<div class="top-menu ms-auto">
+						<ul class="navbar-nav align-items-center">
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-notifications-list">
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-message-list">
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="user-box dropdown">
+						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span id="admin-img-nav">
+
+							</span>
+							<div class="user-info ps-3" id="admin-info-nav">
+								
+							</div>
+						</a>
+						<script>
+							function filladminprofileEditForm(){
+								const url100 = "/admin_details/getdata";
+								fetch(url100)
+									.then(function (response) {
+										return response.json();
+									})
+									.then(function (data) {
+
+										if(data[0].name == null){
+												$('#admin-name').append(
+													'N/A'
+												);
+											}
+											else{
+												$('#admin-name').append(
+													data[0].name
+												);
+											}
+											if(data[0].designation == null){
+												$('#admin-designation').append(
+													'N/A'
+												);
+											}
+											else{
+												$('#admin-designation').append(
+													data[0].designation
+												);
+											}
+											if(data[0].email  == null){
+												$('#admin-mail').append(
+													'N/A'
+												);
+											}
+											else{
+												$('#admin-mail').append(
+													data[0].email
+												);
+											}
+											if(data[0].phone  == null){
+												$('#admin-phone').append(
+													'N/A'
+												);
+											}
+											else{
+												$('#admin-phone').append(
+													data[0].phone
+												);
+											}
+											if(data[0].address  == null){
+												$('#admin-address').append(
+													'N/A'
+												);
+											}
+											else{
+												$('#admin-address').append(
+													data[0].address
+												);
+											}
+											if(data[0].linkedin  == null){
+												$('#admin-linkedin').append(
+													'<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin me-2 icon-inline"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>Linkedin</h6>' +
+													'<a href="#"><span class="text-white">Linkedin</span></a>'
+												);
+											}
+											else{
+												$('#admin-linkedin').append(
+													'<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin me-2 icon-inline"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>Linkedin</h6>' +
+													'<a href="'+ data[0].linkedin +'"><span class="text-white">Linkedin</span></a>'
+												);
+											}
+											if(data[0].twitter  == null){
+												$('#admin-twitter').append(
+													'<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter me-2 icon-inline"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>' +
+													'<a href="#"><span class="text-white">Twitter</span></a>'
+												);
+											}
+											else{
+												$('#admin-twitter').append(
+													'<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter me-2 icon-inline"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>' +
+													'<a href="'+ data[0].twitter +'"><span class="text-white">Twitter</span></a>'
+												);
+											}
+											if(data[0].instagram  == null){
+												$('#admin-instagram').append(
+													'<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram me-2 icon-inline"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</h6>' +
+													'<a href="#"><span class="text-white">Instagram</span></a>'
+												);
+											}
+											else{
+												$('#admin-instagram').append(
+													'<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter me-2 icon-inline"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>' +
+													'<a href="'+ data[0].instagram +'"><span class="text-white">Twitter</span></a>'
+												);
+											}
+											if(data[0].facebook  == null){
+												$('#admin-facebook').append(
+													'<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook me-2 icon-inline"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>' +
+													'<a href="#"><span class="text-white">Facebook</span></a>'
+												);
+											}
+											else{
+												$('#admin-facebook').append(
+													'<h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook me-2 icon-inline"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>' +
+													'<a href="'+ data[0].facebook +'"><span class="text-white">Facebook</span></a>'
+												);
+											}
+										
+										$('#admin-img').append(
+												'<img src="/admin/'+ data[0].username +'.jpg" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">'
+										);
+
+										$('#admin-img-nav').append(
+											'<img src="/admin/'+ data[0].username +'.jpg" alt="Admin" class="user-img" alt="user avatar">'
+										);
+
+										$(document).ready(function(){
+											  $("img").bind("error",function(){
+													// Set the default image
+													$(this).attr("src","profile_avatar.jpg");
+											  });
+										});
+							
+										$('#admin-info-nav').append(
+											'<p class="user-name mb-0">'+ data[0].username +'</p>' +
+											'<p class="designattion mb-0">'+ data[0].designation +'</p>'
+										);
+									})
+									.catch(function (err) {
+										console.log('error: ' + err);
+									});
+							}
+						</script>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="/update_profile"><i class="bx bx-cog"></i><span>Update Profile</span></a>
+							</li>
+							<li><a class="dropdown-item" href="/update_password"><i class="bx bx-lock"></i><span>Update Password</span></a>
+							</li>
+							<li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+							<li><a class="dropdown-item" href="/logout"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Dashboard</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Password Settings</li>
+							</ol>
+						</nav>
+					</div>
+					<!--<div class="ms-auto">
+						<div class="btn-group">
+							<button type="button" class="btn btn-light">Settings</button>
+							<button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+								<a class="dropdown-item" href="javascript:;">Another action</a>
+								<a class="dropdown-item" href="javascript:;">Something else here</a>
+								<div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="container">
+					<div class="main-body">
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="card">
+									<div class="card-body">
+										<div class="d-flex flex-column align-items-center text-center">
+											<span id="admin-img">
+
+											</span>
+											<div class="mt-3">
+												<h4 id="admin-name"></h4>
+												<p class="mb-1" id="admin-designation"></p>
+												<p class="mb-1" id="admin-mail"></p>
+												<p class="mb-1" id="admin-phone"></p>
+												<p class="font-size-sm" id="admin-address"></p>
+											</div>
+										</div>
+										<hr class="my-4" />
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="admin-linkedin">
+												
+											</li>
+											<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="admin-twitter">
+												
+											</li>
+											<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="admin-instagram">
+												
+											</li>
+											<li class="list-group-item d-flex justify-content-between align-items-center flex-wrap" id="admin-facebook">
+												
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="card">
+									<div class="card-body">
+										<form action="updpass" method="POST">
+											<div class="row mb-3">
+												<div class="col-sm-4">
+													<h6 class="mb-0">Enter Existing Password</h6>
+												</div>
+												<div class="col-sm-5">
+													<input type="password" class="form-control" placeholder="Enter Existing Password" name="password" id="password"/>
+												</div>
+												<div class="col-sm-3">
+													<input class="form-check-input" type="checkbox" value="" id="old_password" onclick="myFunction()">
+													<label class="form-check-label" for="old_password">Show Password</label>
+												</div>
+											</div>
+											<div class="row mb-3">
+												<div class="col-sm-4">
+													<h6 class="mb-0">Enter New Password</h6>
+												</div>
+												<div class="col-sm-5">
+													<input type="password" class="form-control" placeholder="Enter New Password" name="newpass" id="new_password"/>
+												</div>
+												<div class="col-sm-3">
+													<input class="form-check-input" type="checkbox" value="" id="recent_password" onclick="myFunction2()">
+													<label class="form-check-label" for="recent_password">Show Password</label>
+												</div>
+											</div>
+											<div class="row mb-3">
+												<div class="col-sm-4">
+													<h6 class="mb-0">Re-Enter New Password</h6>
+												</div>
+												<div class="col-sm-5">
+													<input type="password" class="form-control" placeholder="Re-Enter New Password" name="newpassconf" id="repeat_new_password"/>
+												</div>
+												<div class="col-sm-3">
+													<input class="form-check-input" type="checkbox" value="" id="repeat_recent_password" onclick="myFunction3()">
+													<label class="form-check-label" for="repeat_recent_password">Show Password</label>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-5"></div>
+												<div class="col-sm-4"></div>
+												<div class="col-sm-3">
+													<button type="submit" class="btn btn-light px-4">Save Changes</button>
+												</div>
+											</div>
+										</form>
+										<script>
+											function myFunction() {
+											  var x = document.getElementById("password");
+											  if (x.type === "password") {
+												x.type = "text";
+											  } else {
+												x.type = "password";
+											  }
+											}
+
+											function myFunction2() {
+											  var x = document.getElementById("new_password");
+											  if (x.type === "password") {
+												x.type = "text";
+											  } else {
+												x.type = "password";
+											  }
+											}
+
+											function myFunction3() {
+											  var x = document.getElementById("repeat_new_password");
+											  if (x.type === "password") {
+												x.type = "text";
+											  } else {
+												x.type = "password";
+											  }
+											}
+
+											//function matchPassword() {  
+                    						//  var pw1 = document.getElementById("new_password");  
+                    						//  var pw2 = document.getElementById("repeat_new_password");  
+                    						//  if(pw1 != pw2)  
+                    						//  {   
+                    						//    alert("Passwords did not match");  
+                    						//  } else {  
+                    						//    alert("Password created successfully");  
+                    						//  }  
+                    						//} 
+										</script>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright © <a href="https://mazesoftsolutions.com/">mazesoftsolution</a> 2021. All right reserved.</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	<!--start switcher-->
+	<div class="switcher-wrapper">
+		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
+		</div>
+		<div class="switcher-body">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 text-uppercase">Theme Customizer</h5>
+				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
+			</div>
+			<hr/>
+			<p class="mb-0">Gaussian Texture</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme1"></li>
+				<li id="theme2"></li>
+				<li id="theme3"></li>
+				<li id="theme4"></li>
+				<li id="theme5"></li>
+				<li id="theme6"></li>
+			</ul>
+			<hr>
+			<p class="mb-0">Gradient Background</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme7"></li>
+				<li id="theme8"></li>
+				<li id="theme9"></li>
+				<li id="theme10"></li>
+				<li id="theme11"></li>
+				<li id="theme12"></li>
+			</ul>
+		</div>
+	</div>
+	<!--end switcher-->
+	<!-- Bootstrap JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#Client-Request').DataTable({
+				lengthMenu: [[6, 10, 20, -1], [6, 10, 20, 'Show All']]
+			});
+		  } );
+	</script>
+	<script src="assets/js/index.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script>
+		new PerfectScrollbar('.product-list');
+		new PerfectScrollbar('.customers-list');
+	</script>
+	<script>
+		filladminprofileEditForm();
+	</script>
+</body>
+
+</html>

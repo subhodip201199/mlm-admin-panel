@@ -1,0 +1,1 @@
+You can see all the uploaded advertisement picture here

@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="assets/css/pace.min.css" rel="stylesheet" />
+	<script src="assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<title>PJH ADMIN PORTAL</title>
+	<script src="assets/js/jquery.min.js"></script>
+</head>
+
+<body class="bg-theme bg-theme2">
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+				</div>
+				<div>
+					<h4 class="logo-text">PJH</h4>
+				</div>
+				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+				<!--<li>
+					<a href="/home">
+						<div class="parent-icon"><i class='bx bx-home-circle'></i>
+						</div>
+						<div class="menu-title">Dashboard</div>
+					</a>
+				</li>
+				<li>
+					<a href="/admin_front">
+						<div class="parent-icon"><i class='bx bx-category'></i>
+						</div>
+						<div class="menu-title">Customize Front Page</div>
+					</a>
+				</li>
+				<li style="background-color: #4d4a4a;">
+					<a href="/admin_about">
+						<div class="parent-icon"><i class='bx bx-message-square-edit'></i>
+						</div>
+						<div class="menu-title">Customize About Us</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="parent-icon"><i class='bx bx-folder-plus'></i>
+						</div>
+						<div class="menu-title">Customize Our Service</div>
+					</a>
+				</li>
+				<li>
+					<a href="/admin_founder">
+						<div class="parent-icon"><i class='bx bx-user-pin'></i>
+						</div>
+						<div class="menu-title">Customize Founder Details</div>
+					</a>
+				</li>
+				<li>
+					<a href="/admin_our_process">
+						<div class="parent-icon"><i class='bx bx-cookie'></i>
+						</div>
+						<div class="menu-title">Customize Our Process</div>
+					</a>
+				</li>
+				<li>
+					<a href="/admin_faq">
+						<div class="parent-icon"><i class='bx bx-comment-error'></i>
+						</div>
+						<div class="menu-title">Customize FAQ's</div>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class='bx bx-cog'></i>
+						</div>
+						<div class="menu-title">Customize Main Service</div>
+					</a>
+					<ul>
+						<li> <a href="#"><i class="lni lni-drupal-original"></i>Customize Design & Planning</a>
+						</li>
+						<li> <a href="#"><i class="lni lni-joomla"></i>Customize Exterior Design</a>
+						</li>
+						<li> <a href="#"><i class="lni lni-life-ring"></i>Customize Custom Solution</a>
+						</li>
+						<li> <a href="#"><i class="lni lni-school-bench-alt"></i>Customize Furniture and Decor</a>
+						</li>
+						<li> <a href="#"><i class="lni lni-grid"></i>Customize Creative Concept</a>
+						</li>
+						<li> <a href="#"><i class="bx bx-message-square-edit"></i>Customize Author's Control</a>
+						</li>
+					</ul>
+				</li>
+				
+				<li>
+					<a href="/admin_portfolio">
+						<div class="parent-icon"><i class='bx bx-image'></i>
+						</div>
+						<div class="menu-title">Customize Portfolio</div>
+					</a>
+				</li>
+				<li>
+					<a href="/admin_blog">
+						<div class="parent-icon"><i class='lni lni-blogger'></i>
+						</div>
+						<div class="menu-title">Customize Blog</div>
+					</a>
+				</li>
+				<li>
+					<a href="/admin_contact">
+						<div class="parent-icon"><i class='lni lni-phone'></i>
+						</div>
+						<div class="menu-title">Customize Contact</div>
+					</a>
+				</li>-->
+				
+				<li>
+					<a href="/logout">
+						<div class="parent-icon"><i class='bx bx-log-out-circle'></i>
+						</div>
+						<div class="menu-title">Logout</div>
+					</a>
+				</li>
+			</ul>
+			<!--end navigation-->
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+					</div>
+					<div class="flex-grow-1">
+						<div class="position-relative">
+						</div>
+					</div>
+					<div class="top-menu ms-auto">
+						<ul class="navbar-nav align-items-center">
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-notifications-list">
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-message-list">
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<!--<div class="user-box dropdown">
+						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<img src="https://via.placeholder.com/110x110" class="user-img" alt="user avatar">
+							<div class="user-info ps-3">
+								<p class="user-name mb-0">Demo Client Name</p>
+								<p class="designattion mb-0">Demo Client Designation</p>
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="/admin_profile"><i class="bx bx-user"></i><span>Profile</span></a>
+							</li>
+							<li><a class="dropdown-item" href="/admin_settings"><i class="bx bx-cog"></i><span>Settings</span></a>
+							</li>
+							<li><a class="dropdown-item" href="/home"><i class='bx bx-home-circle'></i><span>Dashboard</span></a>
+							</li>
+							<li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+							<li><a class="dropdown-item" href="/logout"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+							</li>
+						</ul>
+					</div>-->
+				</nav>
+			</div>
+		</header>
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Dashboard</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Add User</li>
+							</ol>
+						</nav>
+					</div>
+					<!--<div class="ms-auto">
+						<div class="btn-group">
+							<button type="button" class="btn btn-light">Settings</button>
+							<button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+								<a class="dropdown-item" href="javascript:;">Another action</a>
+								<a class="dropdown-item" href="javascript:;">Something else here</a>
+								<div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="row">
+                    <div class="col-xl-3"></div>
+					<div class="col-xl-6 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<h5 class="mb-1">Add a Admin</h5>
+									</div>
+								</div>
+								<br>
+								<form action="/register" method="POST" class="row g-3 needs-validation" novalidate>
+									<label for="username" class="form-label">UserName</label>
+									<input id="username" class="form-control form-control-sm mb-3" type="text" placeholder="Add UserName" aria-label=".form-control-sm example" name="username" value="admin" readonly required>
+									
+									<!--<label for="user_id" class="form-label">User Id</label>
+									<input id="user_id" class="form-control form-control-sm mb-3" type="text" placeholder="Add UserId" aria-label=".form-control-sm example" name="user_id">-->
+									
+									<label for="name" class="form-label">Add Name</label>
+									<input id="name" class="form-control form-control-sm mb-3" type="text" placeholder="Add Name" aria-label=".form-control-sm example" name="name">
+									<label for="phone" class="form-label">Add Phone</label>
+                                    <input id="phone" class="form-control form-control-sm mb-3" type="text" placeholder="Add phone" aria-label=".form-control-sm example" name="phone" maxlength="10">
+                                    <label for="email" class="form-label">Add E-mail</label>
+                                    <input id="email" class="form-control form-control-sm mb-3" type="text" placeholder="Add e-mail" aria-label=".form-control-sm example" name="email">
+                                    <!--<label for="username" class="form-label">Add Username</label>
+                                    <input id="username" class="form-control form-control-sm mb-3" type="text" placeholder="Add username" aria-label=".form-control-sm example" name="username" required>-->                               
+                                    <label for="password" class="form-label">Add Password</label>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-8">
+                                            <input id="password" class="form-control form-control-sm mb-3" type="password" placeholder="Add password" aria-label=".form-control-sm example" name="password" required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input class="form-check-input" type="checkbox" value="" id="recent_password" onclick="myFunction2()">
+											<label class="form-check-label" for="recent_password">Show Password</label>
+                                        </div>
+                                    </div>
+                                    <label for="passConf" class="form-label">Confirm your Password</label>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-8">
+                                            <input id="passConf" class="form-control form-control-sm mb-3" type="password" placeholder="Confirm your password" aria-label=".form-control-sm example" name="passConf" required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input class="form-check-input" type="checkbox" value="" id="repeat_recent_password" onclick="myFunction3()">
+											<label class="form-check-label" for="repeat_recent_password">Show Password</label>
+                                        </div>
+                                    </div>
+									<div class="col-12">
+										<button class="btn btn-light" type="submit" name="addUser">Submit form</button>
+									</div>
+								</form>
+                                <script>
+                                    function myFunction2() {
+									  var x = document.getElementById("password");
+									  if (x.type === "password") {
+										x.type = "text";
+									  } else {
+										x.type = "password";
+									  }
+									}
+
+                                    function myFunction3() {
+									  var x = document.getElementById("passConf");
+									  if (x.type === "password") {
+										x.type = "text";
+									  } else {
+										x.type = "password";
+									  }
+									}
+                                </script>
+							</div>
+						</div>
+					</div>
+                    <div class="col-xl-3"></div>
+				</div>
+				<!--end Row-->
+			</div>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright © <a href="https://mazesoftsolutions.com/">mazesoftsolution</a> 2021. All right reserved.</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	<!--start switcher-->
+	<div class="switcher-wrapper">
+		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
+		</div>
+		<div class="switcher-body">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 text-uppercase">Theme Customizer</h5>
+				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
+			</div>
+			<hr/>
+			<p class="mb-0">Gaussian Texture</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme1"></li>
+				<li id="theme2"></li>
+				<li id="theme3"></li>
+				<li id="theme4"></li>
+				<li id="theme5"></li>
+				<li id="theme6"></li>
+			</ul>
+			<hr>
+			<p class="mb-0">Gradient Background</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme7"></li>
+				<li id="theme8"></li>
+				<li id="theme9"></li>
+				<li id="theme10"></li>
+				<li id="theme11"></li>
+				<li id="theme12"></li>
+			</ul>
+		</div>
+	</div>
+	<!--end switcher-->
+
+	<!-- Bootstrap JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	
+	<script src="assets/js/index.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script>
+		new PerfectScrollbar('.product-list');
+		new PerfectScrollbar('.customers-list');
+	</script>
+	<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+			(function () {
+			  'use strict'
+	
+			  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+			  var forms = document.querySelectorAll('.needs-validation')
+	
+			  // Loop over them and prevent submission
+			  Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+				  form.addEventListener('submit', function (event) {
+					if (!form.checkValidity()) {
+					  event.preventDefault()
+					  event.stopPropagation()
+					}
+	
+					form.classList.add('was-validated')
+				  }, false)
+				})
+			})()
+	</script>
+	<script>
+		showaboutusData();
+		showreviewData();
+	</script>
+</body>
+
+</html>

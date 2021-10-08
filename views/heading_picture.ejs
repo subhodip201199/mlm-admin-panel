@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="assets/css/pace.min.css" rel="stylesheet" />
+	<script src="assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<title>PJH ADMIN PORTAL</title>
+	<script src="assets/js/jquery.min.js"></script>
+</head>
+
+<body class="bg-theme bg-theme12">
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+				</div>
+				<div>
+					<h4 class="logo-text">PJH</h4>
+				</div>
+				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="lni lni-atlassian"></i>
+						</div>
+						<div class="menu-title">Customize My WebPage</div>
+					</a>
+					<ul>
+						<li> <a href="/heading_picture"><i class="bx bx-right-arrow-alt"></i>Customize Heading Pictures</a>
+						</li>
+						<li> <a href="/product_details"><i class="bx bx-right-arrow-alt"></i>Customize Product Details</a>
+						</li>
+						<li> <a href="/advertise_image"><i class="bx bx-right-arrow-alt"></i>Customize My Advertisement</a>
+						</li>
+						<li> <a href="/reviews"><i class="bx bx-right-arrow-alt"></i>Customize My Review</a>
+						</li>
+						<li> <a href="/contact"><i class="bx bx-right-arrow-alt"></i>Customize My Contacts</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-user"></i>
+						</div>
+						<div class="menu-title">All User Details</div>
+					</a>
+					<ul>
+						<li> <a href="/view_users"><i class="bx bx-right-arrow-alt"></i>View Users</a>
+						</li>
+						<li> <a href="/statistics"><i class="bx bx-right-arrow-alt"></i>Statistics</a>
+						</li>
+						<li> <a href="/view_news"><i class="bx bx-right-arrow-alt"></i>Upload News</a>
+						</li>
+						<li> <a href="/view_notification"><i class="bx bx-right-arrow-alt"></i>Upload Notification</a>
+						</li>
+						<li> <a href="/view_rewards"><i class="bx bx-right-arrow-alt"></i>Upload Rewards</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-headphone"></i>
+						</div>
+						<div class="menu-title">Support</div>
+					</a>
+					<ul>
+						<li> <a href="tel: +91629669730"><i class="bx bx-right-arrow-alt"></i>Call Us</a>
+						</li>
+						<li> <a href="mailto:info@mazesoftsolution.com"><i class="bx bx-right-arrow-alt"></i>Email</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!--end navigation-->
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+					</div>
+					<div class="flex-grow-1">
+						<div class="position-relative">
+							<span class="position-absolute" hidden>Dashboard</span>
+						</div>
+					</div>
+					<div class="top-menu ms-auto">
+						<ul class="navbar-nav align-items-center">
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-notifications-list">
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-message-list">
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="user-box dropdown">
+						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span id="admin-img-nav">
+								<img src="assets/images/user.png" alt="Admin" class="user-img" alt="user avatar">
+							</span>
+							<div class="user-info ps-3">
+								<p class="user-name mb-0">User Name</p>
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="/update_profile"><i class="bx bx-cog"></i><span>Update Profile</span></a>
+							</li>
+							<li><a class="dropdown-item" href="/update_password"><i class="bx bx-lock"></i><span>Update Password</span></a>
+							</li>
+							<li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+							<li><a class="dropdown-item" href="/logout"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<!--breadcrumb-->
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Dashboard</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Header Page</li>
+							</ol>
+						</nav>
+					</div>
+					<!--<div class="ms-auto">
+						<div class="btn-group">
+							<button type="button" class="btn btn-light">Settings</button>
+							<button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+								<a class="dropdown-item" href="javascript:;">Another action</a>
+								<a class="dropdown-item" href="javascript:;">Something else here</a>
+								<div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<!--end breadcrumb-->
+				<div class="row">
+					<div class="col-xl-4 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<h5 class="mb-1">Add Header First Image</h5>
+									</div>
+								</div>
+								<br>
+								<form action="/header_image1/add" method="POST" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+									<div class="mb-3">
+										<label for="header_image1" class="form-label">Add My Background Header Picture</label>
+										<input class="form-control" type="file" id="header_image1" name="header_image1" required>
+									</div>
+									<div class="col-12">
+										<button class="btn btn-light" type="submit" onclick="validateFileType1()">Submit form</button>
+									</div>
+								</form>
+								<script>
+									function validateFileType1(){
+                                        var fileName = document.getElementById("header_image1").value;
+                                        var idxDot = fileName.lastIndexOf(".") + 1;
+                                        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                                        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+                                            //TO DO
+                                        }else{
+                                            alert("Only .jpg, .jpeg and .png files are allowed!");
+                                        }   
+                                    }
+								</script>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<h5 class="mb-1">Add Header Second Images</h5>
+									</div>
+								</div>
+								<br>
+								<form action="/header_image2/add" method="POST" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+									<div class="mb-3">
+										<label for="header_image2" class="form-label">Add My Background Header Picture</label>
+										<input class="form-control" type="file" id="header_image2" name="header_image2" required>
+									</div>
+									<div class="col-12">
+										<button class="btn btn-light" type="submit" onclick="validateFileType2()">Submit form</button>
+									</div>
+								</form>
+								<script>
+									function validateFileType2(){
+                                        var fileName = document.getElementById("header_image2").value;
+                                        var idxDot = fileName.lastIndexOf(".") + 1;
+                                        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                                        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+                                            //TO DO
+                                        }else{
+                                            alert("Only .jpg, .jpeg and .png files are allowed!");
+                                        }   
+                                    }
+								</script>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div>
+										<h5 class="mb-1">Add Header Third Images</h5>
+									</div>
+								</div>
+								<br>
+								<form action="/header_image3/add" method="POST" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+									<div class="mb-3">
+										<label for="header_image3" class="form-label">Add My Background Header Picture</label>
+										<input class="form-control" type="file" id="header_image3" name="header_image3" required>
+									</div>
+									<div class="col-12">
+										<button class="btn btn-light" type="submit" onclick="validateFileType3()">Submit form</button>
+									</div>
+								</form>
+								<script>
+									function validateFileType3(){
+                                        var fileName = document.getElementById("header_image3").value;
+                                        var idxDot = fileName.lastIndexOf(".") + 1;
+                                        var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                                        if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+                                            //TO DO
+                                        }else{
+                                            alert("Only .jpg, .jpeg and .png files are allowed!");
+                                        }   
+                                    }
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xl-4 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<h5 class="mb-1">First Slider</h5>
+								</div>
+							</div>
+							<div class="product-list p-3 mb-3">
+								<div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
+									<div class="col-sm-12">
+										<img src="/user_banner/1.jpg" style="height: 100%; width: 100%;" alt="background_image">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<h5 class="mb-1">Second Slider</h5>
+								</div>
+							</div>
+							<div class="product-list p-3 mb-3">
+								<div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
+									<div class="col-sm-12">
+										<img src="/user_banner/2.jpg" style="height: 100%; width: 100%;" alt="background_image">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-4 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<h5 class="mb-1">Third Slider</h5>
+								</div>
+							</div>
+							<div class="product-list p-3 mb-3">
+								<div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
+									<div class="col-sm-12">
+										<img src="/user_banner/3.jpg" style="height: 100%; width: 100%;" alt="background_image">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright © <a href="https://mazesoftsolutions.com/">mazesoftsolution</a> 2021. All right reserved.</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	
+	<!--start switcher-->
+	<div class="switcher-wrapper">
+		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
+		</div>
+		<div class="switcher-body">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 text-uppercase">Theme Customizer</h5>
+				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
+			</div>
+			<hr/>
+			<p class="mb-0">Gaussian Texture</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme1"></li>
+				<li id="theme2"></li>
+				<li id="theme3"></li>
+				<li id="theme4"></li>
+				<li id="theme5"></li>
+				<li id="theme6"></li>
+			</ul>
+			<hr>
+			<p class="mb-0">Gradient Background</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme7"></li>
+				<li id="theme8"></li>
+				<li id="theme9"></li>
+				<li id="theme10"></li>
+				<li id="theme11"></li>
+				<li id="theme12"></li>
+			</ul>
+		</div>
+	</div>
+	<!--end switcher-->
+	<!-- Bootstrap JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#kk').DataTable({
+				lengthMenu: [[3, 6, 9, -1], [3, 6, 9, 'Show All']]
+			});
+		  } );
+	</script>
+	<script src="assets/js/index.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script>
+		new PerfectScrollbar('.product-list');
+		new PerfectScrollbar('.customers-list');
+	</script>
+	<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+			(function () {
+			  'use strict'
+	
+			  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+			  var forms = document.querySelectorAll('.needs-validation')
+	
+			  // Loop over them and prevent submission
+			  Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+				  form.addEventListener('submit', function (event) {
+					if (!form.checkValidity()) {
+					  event.preventDefault()
+					  event.stopPropagation()
+					}
+	
+					form.classList.add('was-validated')
+				  }, false)
+				})
+			})()
+	</script>
+</body>
+
+</html>

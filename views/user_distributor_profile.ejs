@@ -1,0 +1,1665 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--favicon-->
+	<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+	<!--plugins-->
+	<link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+	<link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
+	<link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+	<!-- loader-->
+	<link href="assets/css/pace.min.css" rel="stylesheet" />
+	<script src="assets/js/pace.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/app.css" rel="stylesheet">
+	<link href="assets/css/icons.css" rel="stylesheet">
+	<!-- Theme Style CSS -->
+	<link rel="stylesheet" href="assets/css/dark-theme.css" />
+	<link rel="stylesheet" href="assets/css/semi-dark.css" />
+	<link rel="stylesheet" href="assets/css/header-colors.css" />
+	<title>PJH ADMIN PORTAL</title>
+	<script src="assets/js/jquery.min.js"></script>
+	<!--For Print-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.css"></script>
+	<script scr="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.map"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.min.css"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.min.js"></script>
+
+	<!--All script Data-->
+
+	
+	<script>
+		function fillsellData(){
+		
+		const url4 = "/user-sell-details/getdata";
+					
+		fetch(url4)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+				$('#statistics_details tr').remove();
+				$(document).ready(function() {
+				$('#statistics-Details').DataTable({
+					lengthMenu: [[6, 12, 24, -1], [6, 12, 24, 'Show All']]
+				});
+			} );
+				fillsellTableData(data);
+			})
+			.catch(function (err) {
+				console.log('error: ' + err);
+			});
+		}
+	
+		function fillsellTableData(data){
+			
+			var total_income;
+			var total_bv;
+			var tds;
+			var grand_debit_amount = 0;
+			var grand_credit_amount = 0;
+			var final_profit;
+			var final_debit;
+			var comission;
+			var credited_amount;
+			var grand_sale_amount = 0;
+			var grand_discount_amount = 0;
+			var grand_income_amount = 0;
+			var grand_tds_amount = 0;
+			var GST_amount;
+
+			for(var i=0; i<data.length; i++){
+
+				total_bv = parseFloat(data[i].final_amount/2).toFixed(2);
+
+				if(parseInt(total_bv) >= parseInt(100000)){
+					comission = parseFloat((parseInt(total_bv) * parseInt(35)) / parseInt(100));
+				}else if(parseInt(60000) <= parseInt(total_bv) && parseInt(total_bv) <= parseInt(99999)){
+					comission = parseFloat((parseInt(total_bv) * parseInt(30)) / parseInt(100));
+				}else if(parseInt(30000) <= parseInt(total_bv) &&  parseInt(total_bv) <= parseInt(59999)){
+				  comission = parseFloat((parseInt(total_bv) * parseInt(25)) / parseInt(100));
+				}else if(parseInt(12000) <= parseInt(total_bv) &&  parseInt(total_bv) <= parseInt(29999)){
+				  comission = parseFloat((parseInt(total_bv) * parseInt(20)) / parseInt(100));
+				}else if(parseInt(1) <= parseInt(total_bv) &&  parseInt(total_bv) <= parseInt(11999)){
+				  comission = parseFloat((parseInt(total_bv) * parseInt(10)) / parseInt(100));
+				}else{
+				  comission = 0;
+				}
+				tds = parseFloat((parseFloat(comission) * parseFloat(20)) / parseFloat(100)).toFixed(2);
+
+				final_debit = parseFloat((parseFloat(comission) - parseFloat(tds))).toFixed(2);
+
+				if(data[i].sum == 0){
+					credited_amount = data[i].final_amount;
+				}
+				else{
+					credited_amount = parseFloat((parseFloat(final_amount) * parseFloat(data[i].sum))/parseFloat(100)).toFixed(2);
+				}
+
+				$('#statistics_details').append(
+					'<tr>' +
+						'<td>' + data[i].date + '</td>' +
+						'<td>' + parseFloat(data[i].final_amount).toFixed(2) + '</td>' +
+						'<td>' + parseFloat(parseFloat(data[i].final_amount)/2).toFixed(2) + '</td>' +
+						'<td style="color: yellow;">' + tds + '</td>' +
+						'<td style="color: red;">' + final_debit + '</td>' +
+						'<td>' + parseFloat(data[i].sum).toFixed(2) + '</td>' +
+						'<td style="color: green;">' + parseFloat(credited_amount).toFixed(2) + '</td>' +
+					'</td>'
+				);
+
+				grand_sale_amount = parseFloat(parseFloat(grand_sale_amount) + parseFloat(data[i].final_amount)).toFixed(2);
+
+				grand_discount_amount = parseFloat(parseFloat(grand_discount_amount) + parseFloat(data[i].sum)).toFixed(2);
+
+				grand_credit_amount = parseFloat(parseFloat(grand_credit_amount) + parseFloat(credited_amount)).toFixed(2);
+
+				grand_income_amount = parseFloat(parseFloat(grand_income_amount) + parseFloat(final_debit)).toFixed(2);
+
+				grand_tds_amount = parseFloat(parseFloat(grand_tds_amount) + parseFloat(tds)).toFixed(2);
+				
+				grand_debit_amount = parseFloat(parseFloat(grand_debit_amount) + parseFloat(comission)).toFixed(2);
+			}
+
+			GST_amount = parseFloat(parseFloat(grand_credit_amount)* parseInt(12))/parseInt(100).toFixed(2);
+
+			var new_credit_amount = parseFloat(parseFloat(grand_credit_amount) - parseFloat(GST_amount)).toFixed(2);
+			
+			final_profit = parseFloat(new_credit_amount - grand_debit_amount).toFixed(2);
+
+			$('#total-sale-amount').append(
+					'Total Sale Amount(INR): ' + grand_credit_amount
+			);
+
+			$('#total-discount-amount').append(
+					'Total Discount (%): ' + grand_discount_amount
+			);
+
+			$('#total-credit-amount').append(
+					'Total Credit Amount with GST(12%)(INR): ' + grand_credit_amount
+			);
+
+			$('#total-credit-amount-without-gst').append(
+					'Total Credit Amount without GST(INR): ' + new_credit_amount
+			);
+
+			$('#total-income-by-client').append(
+					'Total Credit Amount By Client(INR): ' + grand_income_amount
+			);
+
+			$('#total-tds-amount').append(
+					'Total TDS Amount (20%)(INR): ' + grand_tds_amount
+			);
+
+			$('#total-debit-amount').append(
+					'Total Debit Amount(INR): ' + grand_debit_amount
+			);
+
+			$('#total-income').append(
+					'Total Profit(INR): ' + final_profit
+			);
+
+		}
+		fillsellData();
+	</script>
+	
+	<script>
+		var month;
+		var year;
+
+		function found_out(){
+
+			var formEl = document.forms.pay_out_form;
+			var formData = new FormData(formEl);
+			var month = formData.get('month');
+			var year = formData.get('year');
+
+			console.log(year, month);
+
+			const url20 = "/payout/getdata?month=" + month + "&year=" + year;
+
+			if(!month || !year){
+				$('#error_input').modal('show');
+				return false;
+			}
+			else{
+				fetch(url20)
+					.then(function (response) {
+						return response.json();
+					})
+					.then(function (data) {
+						$("#my_direct_table tbody tr").remove(); 
+						appendData2(data);
+					})
+					.catch(function (err) {
+						console.log('error: ' + err);
+					});
+			}
+
+			function appendData2(data){
+
+				var mainContainer = document.getElementById("tbody");
+
+				var status;
+				var total_bv;
+				var buying_amount;
+				var total_income;
+				var tds;
+				var comission;
+
+				if(data[0].sum == 0){
+					buying_amount = data[0].final_amount;
+				}
+				else{
+					buying_amount =  parseFloat(parseInt(data[0].final_amount) * parseInt(data[0].sum)/parseInt(100)).toFixed(2);
+				}
+
+				total_bv = parseInt(buying_amount/2);
+
+				console.log(total_bv);
+
+				if(parseInt(total_bv) >= parseInt(100000)){
+                	comission = (parseInt(total_bv) * parseInt(35)) / parseInt(100);
+                }else if(parseInt(60000) <= parseInt(total_bv) &&  parseInt(total_bv) <= parseInt(99999)){
+                    comission = (parseInt(total_bv) * parseInt(30)) / parseInt(100);
+                }else if(parseInt(30000) <= parseInt(total_bv) &&  parseInt(total_bv) <= parseInt(59999)){
+                  comission = (parseInt(total_bv) * parseInt(25)) / parseInt(100);
+                }else if(parseInt(12000) <= parseInt(total_bv) &&  parseInt(total_bv) <= parseInt(29999)){
+                  comission = (parseInt(total_bv) * parseInt(20)) / parseInt(100);
+                }else if(parseInt(1) <= parseInt(total_bv) &&  parseInt(total_bv) <= parseInt(11999)){
+                  comission = (parseInt(total_bv) * parseInt(10)) / parseInt(100);
+                }else{
+                  comission = 0;
+                }
+
+				console.log(comission);
+
+				tds = parseFloat((parseFloat(comission) * parseFloat(20)) / parseFloat(100)).toFixed(2);
+
+				console.log(tds);
+
+				total_income = parseFloat(parseFloat(comission) - parseFloat(tds)).toFixed(2);
+
+				console.log(total_income);
+
+				if(buying_amount == 0){
+					status = 'N'
+				}
+				else{
+					status = 'Y'
+				}
+
+				var div = document.createElement("tr");
+				div.innerHTML = '<tr>' +
+									'<td scope="col" style="border-right: solid; border-right-color: black;">' +
+										'Self BV' +
+									'</td>' +
+									'<td scope="col" style="border-right: solid; border-right-color: black;">' +
+										status +
+									'</td>' +
+									//'<td scope="col" style="border-right: solid; border-right-color: black;">' +
+									//	'0.00' +
+									//'</td>' +
+									'<td scope="col" style="border-right: solid; border-right-color: black;">' +
+										total_income +
+									'</td>' +
+								'</tr>';
+				mainContainer.appendChild(div);
+
+				$('#total-income-receipt').append(
+					'₹ ' + comission
+				)
+
+				$('#tds-amount').append(
+					'₹ ' + tds
+				)
+
+				$('#repurchase-amount').append(
+					'₹ ' + buying_amount
+				)
+
+				$('#adjustment-float').append(
+					'₹ ' + total_income
+				)
+
+				if(data[0].month == 01){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : JAN-'+ data[0].year +' )(From : 01/01/'+ data[0].year +' To : 01/02/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 02){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : FEB-'+ data[0].year +' )(From : 01/02/'+ data[0].year +' To : 01/03/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 03){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : MAR-'+ data[0].year +' )(From : 01/03/'+ data[0].year +' To : 01/04/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 04){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : APR-'+ data[0].year +' )(From : 01/04/'+ data[0].year +' To : 01/05/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 05){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : MAY-'+ data[0].year +' )(From : 01/05/'+ data[0].year +' To : 01/06/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 06){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : JUNE-'+ data[0].year +' )(From : 01/06/'+ data[0].year +' To : 01/07/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 07){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : JULY-'+ data[0].year +' )(From : 01/07/'+ data[0].year +' To : 01/08/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 08){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : AUG-'+ data[0].year +' )(From : 01/08/'+ data[0].year +' To : 01/09/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 09){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : SEP-'+ data[0].year +' )(From : 01/09/'+ data[0].year +' To : 01/10/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 10){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : OCT-'+ data[0].year +' )(From : 01/10/'+ data[0].year +' To : 01/11/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 11){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : NOV-'+ data[0].year +' )(From : 01/11/'+ data[0].year +' To : 01/12/'+ data[0].year +')'
+					)
+				}
+				if(data[0].month == 12){
+					$('#voucher-amount').append(
+						'PAYMENT VOUCHER (MONTH : DEC-'+ data[0].year +' )(From : 01/12/'+ data[0].year +' To : 31/12/'+ data[0].year +')'
+					)
+				}
+
+			}
+
+		}
+	</script>
+	<script>
+		const url1 = "/user_distributor_profile/getdata";
+                    
+		fetch(url1)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+				fillUserDetails(data);
+				fillFranchiseData();
+			})
+			.catch(function (err) {
+				console.log('error: ' + err);
+			});
+
+
+		var user_id;
+		function fillUserDetails(data){
+
+			$('#distributor_id_input').val(data[0].user_id);
+
+			user_id = data[0].user_id;
+
+			$('#user-img').append(
+				'<img src="http://localhost/users/profile_pic/'+ data[0].user_id +'.jpg" alt="Admin" class="rounded-circle p-1 bg-dark" height="220" width="220">'
+			)
+
+			$(document).ready(function(){
+              	$("img").bind("error",function(){
+              	  	// Set the default image
+              	  	$(this).attr("src","assets/images/user.png");
+              	});
+            });
+
+			$('#user-aadhar-img').append(
+				'<a href="#" data-bs-toggle="modal" data-bs-target="#aadhar_image">' +
+					'<img src="http://localhost/users/aadhar/'+ data[0].user_id +'.jpg" style="width: 15vh; height: 10vh;">' +
+				'</a>'
+			)
+
+			$('#modal-aadhar-img').append(
+				'<img src="http://localhost/users/aadhar/'+ data[0].user_id +'.jpg" style="height: 100%; width: 100%;" alt="background_image">'
+			)
+			
+			if(data[0].aadhar_no == null){
+				$('#modal-aadhar-number').append(
+					'N/A'
+				)
+			}
+			else{
+				$('#modal-aadhar-number').append('Aadhar Number:	'+data[0].aadhar_no);
+			}
+
+			$('#user-pan-img').append(
+				'<a href="#" data-bs-toggle="modal"  data-bs-target="#pan_image">' +
+					'<img src="http://localhost/users/pan/'+ data[0].user_id +'.jpg" style="width: 15vh; height: 10vh;">' +
+				'</a>'
+			)
+
+			$('#modal-pan-img').append(
+				'<img src="http://localhost/users/pan/'+ data[0].user_id +'.jpg" style="height: 100%; width: 100%;" alt="background_image">'
+			)
+
+			if(data[0].pan_number == null){
+				$('#modal-pan-number').append(
+					'N/A'
+				)
+			}
+			else{
+				$('#modal-pan-number').append('PAN Number:	'+data[0].pan_number);
+			}
+
+			$('#modal-passbook-img').append(
+				'<img src="http://localhost/users/pass_book/'+ data[0].user_id +'.jpg" style="height: 100%; width: 100%;" alt="background_image">'
+			)
+
+			$('#user-passbook-img').append(
+				'<a href="#" data-bs-toggle="modal" data-bs-target="#passbook_image">' +
+					'<img src="http://localhost/users/pass_book/'+ data[0].user_id +'.jpg" style="width: 15vh; height: 10vh;">' +
+				'</a>'
+			)
+
+			if(data[0].acc_number == null){
+				$('#modal-acc-number').append(
+					'N/A'
+				)
+			}
+			else{
+				$('#modal-acc-number').append('Account Number:	'+data[0].acc_number);
+			}
+
+			$('#name_heading').append('Distributor: ' + data[0].name);
+			$('#user_id').append('PJH/'+data[0].joining_date+'/'+data[0].user_id);
+			$('#receipt_user_id').append('PJH/'+data[0].joining_date+'/'+data[0].user_id);
+			$('#sponsor_id').append(data[0].sponsor_id);
+			$('#name').append(data[0].name);
+			$('#distributor-name').append(data[0].name);
+			$('#father_name').append(data[0].father_name);
+			$('#dob').append(data[0].date_of_birth);
+			$('#gender').append(data[0].gender);
+			$('#city').append(data[0].city);
+			$('#state').append(data[0].state);
+			$('#mobile_number').append(data[0].mobile);
+			$('#joining_date').append(data[0].joining_date);
+			if(data[0].address == null){
+				$('#address').append('N/A');
+			}
+			else{
+				$('#address').append(data[0].address);
+			}
+			if(data[0].house_building == null){
+				$('#building').append('N/A');
+			}
+			else{
+				$('#building').append(data[0].house_building);
+			}
+			if(data[0].street_area == null){
+				$('#area').append('N/A');
+			}
+			else{
+				$('#area').append(data[0].street_area);
+			}
+			$('#aadhaar_no').append(data[0].aadhar_no);
+
+			if(data[0].bank_name == null){
+				$('#bank_name').append('N/A');
+			}
+			else{
+				$('#bank_name').append(data[0].bank_name);
+			}
+			if(data[0].bank_name == null){
+				$('#bank-details-bank-name').append('N/A');
+			}
+			else{
+				$('#bank-details-bank-name').append(data[0].bank_name);
+			}
+			if(data[0].branch_name == null){
+				$('#bank-details-branch-name').append('N/A');
+			}
+			else{
+				$('#bank-details-branch-name').append(data[0].branch_name);
+			}
+			if(data[0].branch_name == null){
+				$('#branch_name').append('N/A');
+			}
+			else{
+				$('#branch_name').append(data[0].branch_name);
+			}
+			if(data[0].acc_number == null){
+				$('#acc_number').append('N/A');
+			}
+			else{
+				$('#acc_number').append(data[0].acc_number);
+			}
+			if(data[0].acc_number == null){
+				$('#bank-details-acc-number').append('N/A');
+			}
+			else{
+				$('#bank-details-acc-number').append(data[0].acc_number);
+			}
+			if(data[0].ifsc_code == null){
+				$('#ifsc_code').append('N/A');
+			}
+			else{
+				$('#ifsc_code').append(data[0].ifsc_code);
+			}
+			if(data[0].ifsc_code == null){
+				$('#bank-details-ifsc-code').append('N/A');
+			}
+			else{
+				$('#bank-details-ifsc-code').append(data[0].ifsc_code);
+			}
+			if(data[0].pan_number == null){
+				$('#pan_number').append('N/A');
+			}
+			else{
+				$('#pan_number').append(data[0].pan_number);
+			}
+			if(data[0].pan_number == null){
+				$('#bank-details-pan-number').append('N/A');
+			}
+			else{
+				$('#bank-details-pan-number').append(data[0].pan_number);
+			}
+			if(data[0].aadhar_no == null){
+				$('#aadhar_number').append('N/A');
+			}
+			else{
+				$('#aadhar_number').append(data[0].aadhar_no);
+			}
+			if(data[0].aadhar_no == null){
+				$('#bank-details-aadhar-number').append('N/A');
+			}
+			else{
+				$('#bank-details-aadhar-number').append(data[0].aadhar_no);
+			}
+			$('#user_type').append(data[0].user_type);
+		}
+	
+		function fillFranchiseData(){
+    
+			const url2 = "/franchise/getdata?sponsor_id=" + user_id;
+
+			fetch(url2)
+				.then(function (response) {
+					return response.json();
+				})
+				.then(function (data) {
+					$('franchise_list tr').remove();
+					$(document).ready(function() {
+						$('#franchise-Details').DataTable({
+							lengthMenu: [[6, 12, 24, -1], [6, 12, 24, 'Show All']]
+						});
+					} );
+					fillFranchiseTableData(data);
+				})
+				.catch(function (err) {
+					console.log('error: ' + err);
+				});
+		}
+
+		function fillFranchiseTableData(data){
+        for(var i=0; i<data.length; i++){
+            $('#franchise_list').append(
+                '<tr>' +
+					'<td>' +
+						'<a style="color: rgb(187, 137, 0);" href="/user_franchise_profile">'+data[i].user_id +'</a>'+
+                    '</td>' +
+					'<td>' +
+						'<a style="color: rgb(187, 137, 0);" href="/user_franchise_profile">'+data[i].name +'</a>'+
+                    '</td>' +
+                    '<td>' +
+						data[i].user_type +
+                    '</td>' + 
+					'<td>' +
+						data[i].sponsor_id +
+                    '</td>' + 
+                    '<td>' +
+                        data[i].sponsor_name +
+                    '</td>' + 
+                    '<td>' +
+						'<button id="' + data[i].user_id + '" type="button" onClick="enterClick(this.id)" class="btn btn-outline-success"><i class="fadeIn animated bx bx-user"></i>Enter</button>' +
+					'</td>' +
+					'<td>' +
+						'<button id="#" type="button" onclick="remove_user_data(this.id)" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#"><i class="fadeIn animated bx bx-user-x"></i>Activate</button>' +
+						'<button id="#" type="button" onclick="remove_user_data(this.id)" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#product_remove_modal"><i class="fadeIn animated bx bx-user-x"></i>Deactivate</button>' +
+                    '</td>' +  
+                '</td>'
+            );
+        }
+    }
+
+	function enterClick(selected_sponsor_id){
+        const url3 = "/franchise/getdata?sponsor_id=" + selected_sponsor_id;
+                    
+        fetch(url3)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                $('#franchise_list tr').remove();
+                fillFranchiseTableData(data);
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+    }
+	</script>
+	<script>
+		const url6 = "/kyc/getdata";
+                    
+		fetch(url6)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
+				$('#status').val(data[0].status);
+				
+			})
+			.catch(function (err) {
+				console.log('error: ' + err);
+			});
+	</script>
+
+</head>
+
+<body class="bg-theme bg-theme12">
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div>
+					<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+				</div>
+				<div>
+					<h4 class="logo-text">PJH</h4>
+				</div>
+				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+				</div>
+			</div>
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="lni lni-atlassian"></i>
+						</div>
+						<div class="menu-title">Customize My WebPage</div>
+					</a>
+					<ul>
+						<li> <a href="/heading_picture"><i class="bx bx-right-arrow-alt"></i>Customize Heading Pictures</a>
+						</li>
+						<li> <a href="/product_details"><i class="bx bx-right-arrow-alt"></i>Customize Product Details</a>
+						</li>
+						<li> <a href="/advertise_image"><i class="bx bx-right-arrow-alt"></i>Customize My Advertisement</a>
+						</li>
+						<li> <a href="/reviews"><i class="bx bx-right-arrow-alt"></i>Customize My Review</a>
+						</li>
+						<li> <a href="/contact"><i class="bx bx-right-arrow-alt"></i>Customize My Contacts</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-user"></i>
+						</div>
+						<div class="menu-title">All User Details</div>
+					</a>
+					<ul>
+						<li> <a href="/view_users"><i class="bx bx-right-arrow-alt"></i>View Users</a>
+						</li>
+						<li> <a href="/statistics"><i class="bx bx-right-arrow-alt"></i>Statistics</a>
+						</li>
+						<li> <a href="/view_news"><i class="bx bx-right-arrow-alt"></i>Upload News</a>
+						</li>
+						<li> <a href="/view_notification"><i class="bx bx-right-arrow-alt"></i>Upload Notification</a>
+						</li>
+						<li> <a href="/view_rewards"><i class="bx bx-right-arrow-alt"></i>Upload Rewards</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="has-arrow">
+						<div class="parent-icon"><i class="fadeIn animated bx bx-headphone"></i>
+						</div>
+						<div class="menu-title">Support</div>
+					</a>
+					<ul>
+						<li> <a href="tel: +91629669730"><i class="bx bx-right-arrow-alt"></i>Call Us</a>
+						</li>
+						<li> <a href="mailto:info@mazesoftsolution.com"><i class="bx bx-right-arrow-alt"></i>Email</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<!--end navigation-->
+		</div>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		<header>
+			<div class="topbar d-flex align-items-center">
+				<nav class="navbar navbar-expand">
+					<div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+					</div>
+					<div class="flex-grow-1">
+						<div class="position-relative">
+							<span class="position-absolute" hidden>Dashboard</span>
+						</div>
+					</div>
+					<div class="top-menu ms-auto">
+						<ul class="navbar-nav align-items-center">
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-notifications-list">
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown dropdown-large">
+								<div class="dropdown-menu dropdown-menu-end">
+									<div class="header-message-list">
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="user-box dropdown">
+						<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span id="admin-img-nav">
+								<img src="assets/images/user.png" alt="Admin" class="user-img" alt="user avatar">
+							</span>
+							<div class="user-info ps-3">
+								<p class="user-name mb-0">User Name</p>
+							</div>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="/update_profile"><i class="bx bx-cog"></i><span>Update Profile</span></a>
+							</li>
+							<li><a class="dropdown-item" href="/update_password"><i class="bx bx-lock"></i><span>Update Password</span></a>
+							</li>
+							<li>
+								<div class="dropdown-divider mb-0"></div>
+							</li>
+							<li><a class="dropdown-item" href="/logout"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<!--end header -->
+		<!--start page wrapper -->
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+					<div class="breadcrumb-title pe-3">Dashboard</div>
+					<div class="ps-3">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0 p-0">
+								<li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
+								</li>
+								<li class="breadcrumb-item"><a href="/view_users">User List</a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">Users Profile</li>
+							</ol>
+						</nav>
+					</div>
+					<!--<div class="ms-auto">
+						<div class="btn-group">
+							<button type="button" class="btn btn-light">Settings</button>
+							<button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+								<a class="dropdown-item" href="javascript:;">Another action</a>
+								<a class="dropdown-item" href="javascript:;">Something else here</a>
+								<div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="row">
+					<div class="col-xl-12 d-flex">
+						<div class="card radius-10 w-100">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">
+										<div id="name_heading">
+
+										</div>
+									</h5>
+									<hr/>
+									<div class="accordion" id="accordionExample">
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingOne">
+									  			<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#user_details" aria-expanded="true" aria-controls="user_details">
+													User Details
+									  			</button>
+											</h2>
+											<div id="user_details" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+												<div class="accordion-body">	
+													<div class="table-responsive">
+														<center>
+															<span id="user-img">
+
+															</span>
+														</center>
+														<table class="table align-middle mb-0 text-left" id="user-Details" style="width: 100%;">
+															<tr>
+																<th>Distributor ID:</th>
+																<td id="user_id">
+																	
+																</td>
+																<th>
+																	Sponsor ID:
+																</th>
+																<td id="sponsor_id">
+																	
+																</td>
+															</tr>
+															<tr>
+																<th>Name:</th>
+																<td id="name">
+																	
+																</td>
+																<th>Father Name:</th>
+																<td id="father_name">
+																	
+																</td>
+															</tr>
+															<tr>
+																<th>Date Of Birth:</th>
+																<td id="dob">
+																	
+																</td>
+																<th>Gender:</th>
+																<td id="gender">
+																	
+																</td>
+															</tr>
+															<tr>
+																<th>City:</th>
+																<td id="city">
+																	
+																</td>
+																<th>State:</th>
+																<td id="state">
+																	
+																</td>
+															</tr>
+															<tr>
+																<th>Building:</th>
+																<td id="building">
+																	
+																</td>
+																<th>Area:</th>
+																<td id="area">
+																	
+																</td>
+															</tr>
+															<tr>
+																<th colspan="2">Aadhar Number:</th>
+																<td colspan="2" id="aadhaar_no">
+																	
+																</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingsix">
+												<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bank_acc_details" aria-expanded="true" aria-controls="bank_acc_details">
+												  Bank Account Details
+												</button>
+									  		</h2>
+											  <div id="bank_acc_details" class="accordion-collapse collapse" aria-labelledby="headingsix" data-bs-parent="#accordionExample">
+												<div class="accordion-body">	
+													<div class="table-responsive">
+														<table class="table align-middle mb-0 text-left" id="user-Details" style="width: 100%;">
+															<tr>
+																<th>Bank Name:</th>
+																<td id="bank-details-bank-name"></td>
+																<th>Branch Name:</th>
+																<td id="bank-details-branch-name"></td>
+															</tr>
+															<tr>
+																<th>Account Number:</th>
+																<td id="bank-details-acc-number"></td>
+																<th>IFSC Code:</th>
+																<td id="bank-details-ifsc-code"></td>
+															</tr>
+															<tr>
+																<th>PAN Number:</th>
+																<td id="bank-details-pan-number"></td>
+																<th>Aadhar Number:</th>
+																<td id="bank-details-aadhar-number"></td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingTwo">
+											  	<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#franchise-list" aria-expanded="false" aria-controls="franchise-list">
+													Franchise List
+											  	</button>
+											</h2>
+											<div id="franchise-list" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<div class="table-responsive">
+														<table class="table align-middle mb-0 text-center" id="franchise-Details" style="width: 100%;">
+															<thead class="table-light">
+																<tr>
+																	<th>Sponsor ID</th>
+																	<th>Sponsor Name</th>
+																	<th>Position</th>
+																	<th>Franchise ID</th>
+																	<th>Name</th>
+																	<th>Enter</th>
+																	<th>Action</th>
+																</tr>
+															</thead>
+															<tbody id="franchise_list">
+																
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingThree">
+									  			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#statistics" aria-expanded="false" aria-controls="statistics">
+													Statistics
+									  			</button>
+											</h2>
+											<div id="statistics" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<div class="table-responsive">
+														<table class="table align-middle mb-0 text-center" id="statistics-Details" style="width: 100%;">
+															<thead class="table-light">
+																<tr>
+																	<th>Date</th>
+																	<th>Sale Amount(INR)</th>
+																	<th>Total BV(INR)</th>
+																	<th>TDS Amount (20%)(INR)</th>
+																	<th>Client's Income(INR)</th>
+																	<th>Discount Amount (%)(INR)</th>
+																	<th>Credited Amount (%)(INR)</th>
+																</tr>
+															</thead>
+															<tbody id="statistics_details">
+																
+															</tbody>
+														</table>
+													</div>
+													<br>
+													<div class="row" style="margin-bottom: 10px;">
+														<div class="col-sm-3">
+															<div class="d-flex align-items-center">
+																<div>
+																	<h5 class="mb-1" id="total-sale-amount">
+																	
+																	</h5>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="d-flex align-items-center">
+																<div>
+																	<h5 class="mb-1" id="total-discount-amount">
+																	
+																	</h5>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="d-flex align-items-center">
+																<div>
+																	<h5 class="mb-1" style="color: rgb(0, 197, 171);" id="total-credit-amount">
+																	
+																	</h5>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="d-flex align-items-center">
+																<div>
+																	<h5 class="mb-1" style="color: rgb(212, 97, 3);" id="total-credit-amount-without-gst">
+																	
+																	</h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row" style="margin-bottom: 10px;">
+														<div class="col-sm-3">
+															<div class="d-flex align-items-center">
+																<div>
+																	<h5 class="mb-1" id="total-income-by-client">
+																	
+																	</h5>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="d-flex align-items-center">
+																<div>
+																	<h5 class="mb-1" style="color: yellow;" id="total-tds-amount">
+																	
+																	</h5>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="d-flex align-items-center">
+																<div>
+																	<h5 class="mb-1" style="color: red;" id="total-debit-amount">
+																	
+																	</h5>
+																</div>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="d-flex align-items-center">
+																<div>
+																	<h5 class="mb-1" style="color: rgb(1, 175, 1);" id="total-income">
+																	
+																	</h5>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingfive">
+									  			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#payout-print" aria-expanded="false" aria-controls="payout-print">
+													Pay Out Receipt
+									  			</button>
+											</h2>
+											<div id="payout-print" class="accordion-collapse collapse" aria-labelledby="headingfive" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<div class="row">
+														<div class="col-xl-12 d-flex">
+															<div class="card radius-10 w-100">
+																<div class="card-body">
+																	<div class="d-flex align-items-center">
+																		<div>
+																			<h5 class="mb-1">Select Month</h5>
+																		</div>
+																	</div>
+																	<br>
+																	<div class="row">
+																		<form id="pay_out_form">
+																			<div class="row">
+																				<div class="col-md-6">
+																					<div class="input-group mb-3">
+																						<label class="input-group-text">Month</label>
+																						<select class="form-select" name="month" id="month" required>
+																							<option selected disabled>Choose...</option>
+																							<option value="01">January</option>
+																							<option value="02">February</option>
+																							<option value="03">March</option>
+																							<option value="04">April</option>
+																							<option value="05">May</option>
+																							<option value="06">June</option>
+																							<option value="07">July</option>
+																							<option value="08">August</option>
+																							<option value="09">September</option>
+																							<option value="10">October</option>
+																							<option value="11">November</option>
+																							<option value="12">December</option>
+																						</select>
+																					</div>
+																				</div>
+																				<div class="col-md-6">
+																					<div class="input-group mb-3">
+																						<label class="input-group-text">Year</label>
+																						<select class="form-select" id="#" name="year" required>
+																							<option selected disabled>Choose...</option>
+																							<option value="2021">2021</option>
+																							<option value="2020">2020</option>
+																							<option value="2019">2019</option>
+																							<option value="2018">2018</option>
+																						</select>
+																					</div>
+																				</div>
+																			</div>
+																		</form>
+																		<div class="col-md-12">
+																			<center>
+																				<button class="btn btn-light px-5" onclick="found_out()" style="width: 100%;">Search</button>
+																			</center>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-xl-12 d-flex">
+															<div class="card radius-10 w-100">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<center>
+																				<div class="btn-group">
+																					<button type="button" class="btn btn-light" onclick=welcome_letter()><i class="lni lni-printer"></i>Print</button>
+																				</div>
+																			</center>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!--<div class="table-responsive">-->
+														<div class="card-body" id="letter">
+															<table class="table mb-0" style="width: 100%; border-color: black; border-bottom-style: solid; color: black;">
+																<thead>
+																	<tr>
+																		<td scope="col" style="border: none;">
+																			<center>
+																				<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon" style="height: 15vh; width: 15vh;">
+																			</center>
+																		</td>
+																		<td scope="col" style="border: none;">
+																			<span style="color: black; font-weight: bolder;">PURULIA JANKALYAN HEALTH CARE</span>
+																			<br><br>
+																			<span style="color: black;">
+																				<b>Regd:</b>&nbsp; Belkura, P.O Bogra, P.S.Santaldih, Distt Purulia - 723145
+																			</span>
+																			<br><br>
+																			<span style="color: black;">
+																				<b>Website:</b>&nbsp; www.puruliajanakalyan.com
+																			</span>
+																			<br><br>
+																		</td>
+																	</tr>
+																</thead>
+															</table>
+															<table class="table mb-0" style="width: 100%;">
+																<thead>
+																	<tr>
+																		<td scope="col" class="text-center" style="border:none;">
+																			<p style="color: black;">
+																				PAYMENT VOUCHER (MONTH : AUG-2020 )(From : 01/08/2020 To : 01/09/2020)
+																			</p>
+																		</td>
+																	</tr>
+																</thead>
+															</table>
+															<table class="table mb-0" border="2" style="width: 100%; border-color: black; border-style: solid; color: black;">
+																<thead>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Distributor ID
+																		</th>
+																		<td scope="col" style="border-right: solid; border-right-color: black;" id="receipt_user_id">
+																			
+																		</td>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Bank Name
+																		</th>
+																		<td scope="col" id="bank_name">
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Distributor Name
+																		</th>
+																		<td scope="col" style="border-right: solid; border-right-color: black;" id="distributor-name">
+																			
+																		</td>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Account Number
+																		</th>
+																		<td scope="col" id="acc_number">
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			User Type
+																		</th>
+																		<td scope="col" style="border-right: solid; border-right-color: black;" id="user_type">
+																			
+																		</td>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Bank Branch
+																		</th>
+																		<td scope="col" id="branch_name">
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Mobile Number
+																		</th>
+																		<td scope="col" style="border-right: solid; border-right-color: black;" id="mobile_number">
+																			
+																		</td>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			IFSC Code
+																		</th>
+																		<td scope="col" id="ifsc_code">
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																		</th>
+																		<td scope="col" style="border-right: solid; border-right-color: black;">
+																		</td>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			PAN
+																		</th>
+																		<td scope="col" id="pan_number">
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Address
+																		</th>
+																		<td scope="col" style="border-right: solid; border-right-color: black;" id="address">
+																			
+																		</td>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Date of Joining
+																		</th>
+																		<td scope="col" id="joining_date">
+																			
+																		</td>
+																	</tr>
+																</thead>
+															</table>
+															<table class="table mb-0" style="width: 100%;">
+																<thead>
+																	<tr>
+																		<td scope="col" class="text-center" style="border:none;">
+																			<h4 style="color: black;">
+																				DISTRIBUTOR'S INCOME DETAILS
+																			</h4>
+																		</td>
+																	</tr>
+																</thead>
+															</table>
+															<table class="table mb-0" border="2" style="width: 100%; border-color: black; border-style: solid; color: black;" id="my_direct_table">
+																<thead>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Bonus Type
+																		</th>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Status
+																		</td>
+																		<!--<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Points
+																		</th>-->
+																		<th scope="col">
+																			Income
+																		</th>
+																	</tr>
+																</thead>
+																<tbody id="tbody">
+							
+																</tbody>
+															</table>
+															<table class="table mb-0" border="2" style="width: 100%; margin-top: 10px; border-color: black; border-style: solid; color: black;">
+																<thead>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Total Income
+																		</th>
+																		<td scope="col" id="total-income-receipt">
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			TDS
+																		</th>
+																		<td scope="col" id="tds-amount">
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Repurchase Charge
+																		</th>
+																		<td scope="col" id="repurchase-amount">
+																			
+																		</td>
+																	</tr>
+																	<tr>
+																		<th scope="col" style="border-right: solid; border-right-color: black;">
+																			Total Income (After Deduction)
+																		</th>
+																		<td scope="col" id="adjustment-float">
+																			
+																		</td>
+																	</tr>
+																</thead>
+															</table>
+															<table class="table mb-0" border="2" style="width: 100%; margin-top: 10px; border-color: black; border-style: solid; color: black;">
+																<thead>
+																	<tr>
+																		<td scope="col">
+																			<b>Note:</b> If the PAN Number is not updated with our system , then the rate of TDS deduction will be 20% . Service tax will be paid by the Distributor themselves.
+																		</td>
+																	</tr>
+																</thead>
+															</table>
+														</div>
+													<!--</div>-->
+												</div>
+											</div>
+										</div>
+										<div class="accordion-item">
+											<h2 class="accordion-header" id="headingfour">
+									  			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#kyc_update" aria-expanded="false" aria-controls="kyc_update">
+													KYC Updation
+									  			</button>
+											</h2>
+											<div id="kyc_update" class="accordion-collapse collapse" aria-labelledby="headingfour" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<div class="table-responsive">
+														<table class="table align-middle mb-0 text-center" id="#" style="width: 100%;">
+															<thead class="table-light">
+																<tr>
+																	<th>KYC Type</th>
+																	<th>Picture</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<th>Aadhar Card</th>
+																	<td id="user-aadhar-img">
+																		
+																	</td>
+																</tr>
+																<tr>
+																	<th>Pan Card</th>
+																	<td id="user-pan-img">
+																		
+																	</td>
+																</tr>
+																<tr>
+																	<th>Passbook</th>
+																	<td id="user-passbook-img">
+																		
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<br><br>
+													<form action="/update/kyc" method="POST" class="row g-3 needs-validation" novalidate>
+														<div class="row">
+															<div class="col-sm-10">
+																<div class="mb-3">
+																	<input class="form-control" type="text" id="distributor_id_input" name="distributor_id_input" required readonly>
+																</div>
+															</div>
+															<div class="col-sm-2">
+																<button type="submit" class="btn btn-outline-success"><i class="fadeIn animated bx bx-user-x"></i>Approved</button>
+															</div>
+														</div>
+													</form>
+													<br><br>
+													<form action="/update/rejected/kyc" method="POST" class="row g-3 needs-validation" novalidate>
+														<div class="row">
+															<div class="col-sm-2">
+																<div class="mb-3">
+																	<label for="status" class="form-label">Status</label>
+																</div>
+															</div>
+															<div class="col-sm-8">
+																<div class="mb-3">
+																	<input class="form-control" type="text" id="status" name="status" required readonly>
+																</div>
+															</div>
+															<div class="col-sm-2">
+																<button type="submit" class="btn btn-outline-danger"><i class="fadeIn animated bx bx-user-x"></i>Rejected</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end page wrapper -->
+		<!--start overlay-->
+		<div class="overlay toggle-icon"></div>
+		<!--end overlay-->
+		<!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+		<!--End Back To Top Button-->
+		<footer class="page-footer">
+			<p class="mb-0">Copyright © <a href="https://mazesoftsolutions.com/">mazesoftsolution</a> 2021. All right reserved.</p>
+		</footer>
+	</div>
+	<!--end wrapper-->
+	
+	<!--Modal Data Start-->
+	<div class="modal fade" id="passbook_image" style="display: none;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="product-list p-3 mb-3">
+								<div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
+									<div class="col-sm-12" id="modal-passbook-img">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>																																																																																																																																							
+				</div>
+				<input type="hidden" name="sid" value="370">
+				<div class="modal-footer">
+					<p id="modal-acc-number">
+
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="pan_image" style="display: none;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="product-list2 p-3 mb-3">
+								<div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
+									<div class="col-sm-12" id="modal-pan-img">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>																																																																																																																																							
+				</div>
+				<input type="hidden" name="sid" value="370">
+				<div class="modal-footer">
+					<p id="modal-pan-number">
+
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="aadhar_image" style="display: none;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="customers-list p-3 mb-3">
+								<div class="row border mx-0 mb-3 py-2 radius-10 cursor-pointer">
+									<div class="col-sm-12" id="modal-aadhar-img">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>																																																																																																																																							
+				</div>
+				<input type="hidden" name="sid" value="370">
+				<div class="modal-footer">
+					<p id="modal-aadhar-number">
+
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="error_input" style="display: none;" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="alert border-0 alert-dismissible fade show py-2">
+						<div class="d-flex align-items-center">
+							<div class="font-35 text-white"><i class='bx bx-info-circle'></i>
+							</div>
+							<div class="ms-3">
+								<h6 class="mb-0 text-white">Warning!</h6>
+								<div class="text-white">Please Fill All the input Fields!</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<input type="hidden" name="sid" value="370">
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light" data-bs-dismiss="modal"><i class='bx bx-x'></i> Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Modal Data End-->
+	<!--start switcher-->
+	<div class="switcher-wrapper">
+		<div class="switcher-btn"> <i class='bx bx-cog bx-spin'></i>
+		</div>
+		<div class="switcher-body">
+			<div class="d-flex align-items-center">
+				<h5 class="mb-0 text-uppercase">Theme Customizer</h5>
+				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
+			</div>
+			<hr/>
+			<p class="mb-0">Gaussian Texture</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme1"></li>
+				<li id="theme2"></li>
+				<li id="theme3"></li>
+				<li id="theme4"></li>
+				<li id="theme5"></li>
+				<li id="theme6"></li>
+			</ul>
+			<hr>
+			<p class="mb-0">Gradient Background</p>
+			<hr>
+			<ul class="switcher">
+				<li id="theme7"></li>
+				<li id="theme8"></li>
+				<li id="theme9"></li>
+				<li id="theme10"></li>
+				<li id="theme11"></li>
+				<li id="theme12"></li>
+			</ul>
+		</div>
+	</div>
+	<!--end switcher-->
+	<!-- Bootstrap JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#kk').DataTable({
+				lengthMenu: [[3, 6, 9, -1], [3, 6, 9, 'Show All']]
+			});
+		  } );
+	</script>
+	<script src="assets/js/index.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script>
+		new PerfectScrollbar('.product-list');
+		new PerfectScrollbar('.product-list2');
+		new PerfectScrollbar('.customers-list');
+	</script>
+	<script>
+		//------------------date----------------------//
+
+		// Date object initialized as per Indian (kolkata) timezone. Returns a datetime string
+		let nz_date_string = new Date().toLocaleString("en-US", { timeZone: "Asia/Calcutta" });
+
+		// Date object initialized from the above datetime string
+		let date_nz = new Date(nz_date_string);
+
+		// year as (YYYY) format
+		let year = date_nz.getFullYear();
+
+		for (var i = parseInt(year); i >= 2015; i--) {
+			
+			var daySelect = document.getElementById("year");
+			var myOption = document.createElement("option");
+			myOption.text = i;
+			myOption.value = i;
+			daySelect.add(myOption);
+		}
+	</script>
+	<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+			(function () {
+			  'use strict'
+	
+			  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+			  var forms = document.querySelectorAll('.needs-validation')
+	
+			  // Loop over them and prevent submission
+			  Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+				  form.addEventListener('submit', function (event) {
+					if (!form.checkValidity()) {
+					  event.preventDefault()
+					  event.stopPropagation()
+					}
+	
+					form.classList.add('was-validated')
+				  }, false)
+				})
+			})()
+	</script>
+	<script>
+		function welcome_letter() {
+			printJS({
+			printable: 'letter',
+			type: 'html',
+			targetStyles: ['*'],
+			//header: 'PrintJS - Print Form With Customized Header'
+			})
+		} 
+	</script>
+</body>
+
+</html>
