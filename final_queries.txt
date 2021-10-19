@@ -1,5 +1,5 @@
 create table mlm_user(
-	id bigserial primary key,
+	user_id bigserial primary key,
 	/*user_id varchar(200),*/
 	Username varchar(200),
 	sponsor_id varchar(200),
@@ -57,13 +57,19 @@ create table contact(
 );
 
 CREATE TABLE users (  
-id UUID NOT NULL,  
+id UUID NOT NULL,
+user_id varchar(50),
 username TEXT NOT NULL UNIQUE,  
 password TEXT NOT NULL,  
 name varchar(500),
 phone varchar(20),
 email varchar(500),
 user_type varchar(50),
+access1 varchar(50),
+access2 varchar(50),
+access3 varchar(50),
+access4 varchar(50),
+access5 varchar(50),
 CONSTRAINT users_pkey PRIMARY KEY(id)  
 );
 
